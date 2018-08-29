@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { Recipe } from '../components/recipes/recipe.model';
 import { RecipeService } from '../components/recipes/recipe.service';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../components/auth/auth.service';
 
 @Injectable()
 export class DataStorageService {
