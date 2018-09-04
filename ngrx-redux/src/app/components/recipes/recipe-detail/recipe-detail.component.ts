@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
 import { Store } from '@ngrx/store';
-import { Ingredient } from '../../../shared/ingredient.module';
 import * as ShoppingListActions from '../../shopping-list/store_ngrx/shopping-list.actions';
+import * as fromApp from '../../../store/app.reducers';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import * as fromAuth from '../../auth/store/auth.reducers';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -15,10 +17,12 @@ import * as ShoppingListActions from '../../shopping-list/store_ngrx/shopping-li
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
+  authState: Observable<fromAuth.State>;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router, private authService: AuthService, private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) { }
+  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router, private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
+    this.authState = this.store.select('auth');
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];

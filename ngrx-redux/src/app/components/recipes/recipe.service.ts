@@ -1,7 +1,6 @@
 import { Recipe } from "./recipe.model";
 import { Ingredient } from "../../shared/ingredient.module";
 import { Subject } from "rxjs";
-import { Store } from "@ngrx/store";
 
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();

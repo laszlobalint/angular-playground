@@ -20,7 +20,7 @@
       <ul class="dropdown-menu">
         <li><a (click)="onAddToList()" style="cursor: pointer;">To Shopping List</a></li>
         <li><a (click)="onEditRecipe()" style="cursor: pointer;">Edit Recipe</a></li>
-        <li><a (click)="onDeleteRecipe()" style="cursor: pointer;" *ngIf="authService.isAuthenticated()">Delete Recipe</a></li>
+        <li><a (click)="onDeleteRecipe()" style="cursor: pointer;" *ngIf="(authState | async).authenticated">Delete Recipe</a></li>
       </ul>
     </div>
   </div>
