@@ -1,11 +1,18 @@
-import { Recipe } from "./recipe.model";
-import { Ingredient } from "../../shared/ingredient.module";
-import { Subject } from "rxjs";
+import { Recipe } from "../recipe.model";
+import { Ingredient } from "../../../shared/ingredient.module";
+import * as RecipeActions from '../store/recipes.actions';
+import { AppState } from "../../../store/app.reducers";
 
-export class RecipeService {
-  recipesChanged = new Subject<Recipe[]>();
+export interface FeatureState extends AppState {
+  recipes: State
+}
 
-  private recipes: Recipe[] = [
+export interface State {
+  recipes: Recipe[];
+}
+
+const initialState = {
+  recipes: [
     new Recipe(
       'Burek', 
       'Preparing the dough: Mix 1 pound (453.5g) of flour and 1 tablespoon of salt in a bowl. Add approximately 16 ounces (473ml) of water to the bowl. Mix until you have a dough of a soft and malleable consistency. Spread a tablecloth across the table. Add a pinch of flour on the area where you will knead the dough. Knead the dough on the tablecloth. Let the dough sit for 15 minutes. Preparing the filling: Dice the veal and onion. Add the diced veal and onion to a bowl. Add the following ingredients to the bowl of veal and onion. Mix the contents of the bowl. Shaping the dough: Flatten the dough using a rolling pin. Spread vegetable or olive oil on the surface of the flattened dough. Using your hands, stretch the dough carefully. Preparing Burek: Add the diced veal and onion in a row on the flattened dough. Flip the edges of the dough up over the veal and onion. Roll the dough around the diced veal and onion until you have 3-5 layers of dough around each row. Cut away any remaining dough. Make a rough spiral out of each row. Place in a pan. Place the pan in the oven and cook at 430 °F (221 °C), for 40-50 minutes.', 
@@ -34,37 +41,42 @@ export class RecipeService {
         new Ingredient('Sugar', 5),
         new Ingredient('Vanilla extract', 1),
         new Ingredient('Sour', 1)
-      ]  
-    )
-  ];
+      ])
+  ]
+};
 
-  constructor() {}
-
-  setRecipes(recipes: Recipe[]) {
-    this.recipes = recipes;
-    this.recipesChanged.next(this.recipes.slice());
-  }
-
-  getRecipes() {
-    return this.recipes.slice();
-  }
-
-  getRecipe(index: number) {
-    return this.recipes[index];
-  }
-
-  addRecipe(recipe: Recipe) {
-    this.recipes.push(recipe);
-    this.recipesChanged.next(this.recipes.slice());
-  }
-
-  updateRecipe(index: number, newRecipe: Recipe) {
-    this.recipes[index] = newRecipe;
-    this.recipesChanged.next(this.recipes.slice());
-  }
-
-  deleteRecipe(index: number) {
-    this.recipes.splice(index, 1);
-    this.recipesChanged.next(this.recipes.slice());
+export function recipeReducer(state = initialState, action: RecipeActions.RecipeActions) {
+  switch (action.type) {
+    case (RecipeActions.SET_RECIPES):
+      return {
+        ...state,
+        recipes: [...action.payload]
+      };
+    case (RecipeActions.ADD_RECIPE):
+      return {
+        ...state,
+        recipes: [...state.recipes, action.payload]
+      }
+    case (RecipeActions.UPDATE_RECIPE):
+    const recipe = state.recipes[action.payload.index];
+    const updatedRecipe = {
+      ...recipe,
+      ...action.payload.updatedRecipe
+    };
+    const recipes = [...state.recipes];
+    recipes[action.payload.index] = updatedRecipe;
+      return {
+        ...state,
+        recipes: recipes
+      };
+    case (RecipeActions.DELETE_RECIPE):
+      const oldRecipes = [...state.recipes];
+      oldRecipes.splice(action.payload, 1);
+      return {
+        ...state,
+        recipes: oldRecipes
+      };
+    default:
+      return state;
   }
 }
