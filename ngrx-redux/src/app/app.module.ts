@@ -14,6 +14,8 @@ import { AuthEffects } from './components/auth/store/auth.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,4 +37,12 @@ import { environment } from '../environments/environment';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(APP_ID) private appId: string) {
+    const platform = isPlatformBrowser(platformId) ?
+      'in the browser' : 'on the server';
+    console.log(`Running ${platform} with appId=${appId}`);
+  }
+}

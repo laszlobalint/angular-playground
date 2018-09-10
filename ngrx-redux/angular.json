@@ -1,9 +1,9 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "$schema": "./node_modules/@angular-devkit/core/src/workspace/workspace-schema.json",
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "shoppingRecipes": {
+    "shopping-recipes": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,18 +13,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/shoppingRecipes",
+            "outputPath": "dist/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "polyfills": "src/polyfills.ts",
+            "assets": [],
             "styles": [
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },
@@ -48,29 +44,21 @@
             }
           }
         },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/universal",
-            "main": "src/main.server.ts",
-            "tsConfig": "src/tsconfig.server.json"
-          }
-        },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "shoppingRecipes:build"
+            "browserTarget": "shopping-recipes:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "shoppingRecipes:build:production"
+              "browserTarget": "shopping-recipes:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "shoppingRecipes:build"
+            "browserTarget": "shopping-recipes:build"
           }
         },
         "test": {
@@ -101,10 +89,18 @@
               "**/node_modules/**"
             ]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "src/tsconfig.server.json"
+          }
         }
       }
     },
-    "shoppingRecipes-e2e": {
+    "shopping-recipes-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -112,11 +108,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "shoppingRecipes:serve"
+            "devServerTarget": "shopping-recipes:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "shoppingRecipes:serve:production"
+              "devServerTarget": "shopping-recipes:serve:production"
             }
           }
         },
@@ -132,5 +128,5 @@
       }
     }
   },
-  "defaultProject": "shoppingRecipes"
+  "defaultProject": "shopping-recipes"
 }
