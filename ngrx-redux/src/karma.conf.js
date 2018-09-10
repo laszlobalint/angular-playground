@@ -10,12 +10,15 @@ module.exports = function (config) {
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
+      clearContext: false
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../coverage'),
+      dir: require('path').join(__dirname, 'coverage'),
       reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
+    },
+    angularCli: {
+      environment: 'dev'
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,

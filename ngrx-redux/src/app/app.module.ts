@@ -22,7 +22,7 @@ import { isPlatformBrowser } from '@angular/common';
     AppComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'universal'}),
+    BrowserModule.withServerTransition({ appId: 'shopping-recipes' }),
     HttpClientModule,
     AppRoutingModule,
     ShoppingListModule,
@@ -37,7 +37,7 @@ import { isPlatformBrowser } from '@angular/common';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(APP_ID) private appId: string) {
