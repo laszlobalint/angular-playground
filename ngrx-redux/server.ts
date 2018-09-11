@@ -7,6 +7,11 @@ import { enableProdMode } from '@angular/core';
 import * as express from 'express';
 import { join } from 'path';
 
+import { JSDOM } from 'jsdom';
+
+const jsdom = new JSDOM(`<html></html>`);
+export function document() { return jsdom.window.document; }
+
 enableProdMode();
 
 const app = express();
