@@ -1,39 +1,51 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-# compiled output
-/dist
-/tmp
-/out-tsc
-
-# dependencies
-/node_modules
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
 !.vscode/settings.json
 !.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# misc
+*.launch
+*.log
+*.pid
+*.pid.lock
+*.seed
+*.sublime-workspace
+*.tgz
+.c9/
+.classpath
+.DS_Store
+.env
+.eslintcache
+.grunt
+.lock-wscript
+.next
+.node_repl_history
+.npm
+.nyc_output
+.project
+.settings/
+.vscode/*
+.yarn-integrity
+/.idea
 /.sass-cache
 /connect.lock
 /coverage
+/dist
 /libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
+/node_modules
+/out-tsc
+/tmp
 /typings
-
-# System Files
-.DS_Store
+bower_components
+build/Release
+coverage
+jspm_packages/
+lib-cov
+logs
+node_modules/
+npm-debug.log
+npm-debug.log*
+pids
+testem.log
 Thumbs.db
+typings/
+yarn-debug.log*
+yarn-error.log
