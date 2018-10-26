@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as ShoppingListActions from '../../shopping-list/store_ngrx/shopping-list.actions';
-import { Observable } from 'rxjs';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as fromRecipe from '../store/recipe.reducers';
 import * as RecipeActions from '../store/recipes.actions';
 import 'rxjs/add/operator/take';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-detail',
