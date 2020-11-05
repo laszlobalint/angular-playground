@@ -1,0 +1,12 @@
+<div>
+  <h1>Data Binding Assignment</h1>
+  <app-game-control
+    (intervalFired)="onIntervalFired($event)"
+  ></app-game-control>
+  <div *ngFor="let num of incrementNums" class="row">
+    <div *ngIf="num % 2 === 0; else odd_content">
+      <app-even [number]="num"></app-even>
+    </div>
+    <ng-template #odd_content><app-odd [number]="num"></app-odd></ng-template>
+  </div>
+</div>

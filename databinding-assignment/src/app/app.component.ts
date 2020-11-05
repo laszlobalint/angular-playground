@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  public loadedFeature = 'recipe';
+  incrementNums: number[] = [];
 
-  onNavigate(feature: string): void {
-    this.loadedFeature = feature;
+  public onIntervalFired(number: number): void {
+    this.incrementNums.push(number);
   }
 }
