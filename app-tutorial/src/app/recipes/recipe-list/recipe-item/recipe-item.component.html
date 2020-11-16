@@ -1,9 +1,9 @@
-<a href="#" class="list-group-item clearfix" (click)="onRecipeSelected()">
-  <div class="pull-left">
+<a class="list-group-item clearfix row" style="cursor: pointer" [routerLink]="[id]" routerLinkActive="active">
+  <div class="pull-left col-md-8">
     <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
     <p class="list-group-item-text">{{ recipe.description }}</p>
   </div>
-  <span class="pull-right">
-    <img src="{{ recipe.imagePath }}" alt="{{ recipe.name }}" class="img-responsive" style="max-height: 50px" />
+  <span class="pull-right col-md-4">
+    <img src="{{ recipe.imagePath }}" alt="{{ recipe.name }}" class="img-responsive" style="max-height: 100px" />
   </span>
 </a>

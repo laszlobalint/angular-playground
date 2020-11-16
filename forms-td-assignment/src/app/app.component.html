@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <div class="form-group">
+          <label for="subscription">Type an email address:</label>
+          <input
+            class="form-control"
+            name="email"
+            id="email"
+            type="email"
+            ngModel
+            #email="ngModel"
+            required
+            email
+          />
+          <span *ngIf="!email.valid && email.touched" class="help-block"
+            >Please, enter a valid email!</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="subscription">Choose a Subscription:</label>
+          <select
+            class="form-control"
+            name="subscription"
+            id="subscription"
+            [ngModel]="subscriptionValue"
+            #subscription="ngModel"
+          >
+            <option
+              *ngFor="let subscription of subscriptions"
+              [value]="subscription"
+            >
+              {{ subscription }}
+            </option>
+          </select>
+          <span
+            *ngIf="!subscription.valid && subscription.touched"
+            class="help-block"
+            >Please, choose a subscription!</span
+          >
+        </div>
+        <label for="subscription">Type a secret password:</label>
+        <div class="form-group">
+          <input
+            class="form-control"
+            name="password"
+            id="password"
+            type="password"
+            #password="ngModel"
+            ngModel
+            required
+          />
+          <span *ngIf="!password.valid && password.touched" class="help-block"
+            >Please, enter a valid password!</span
+          >
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">
+          Submit
+        </button>
+        <span *ngIf="!f.valid && f.touched" class="help-block"
+          >The form is invalid!</span
+        >
+      </form>
+      <div *ngIf="form.submitted" class="row col-xs-12">
+        <div>{{ form.email }}</div>
+        <div>{{ form.subscription }}</div>
+        <div>{{ form.password }}</div>
+      </div>
+    </div>
+  </div>
+</div>
