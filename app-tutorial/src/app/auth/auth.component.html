@@ -3,6 +3,7 @@
     <div *ngIf="error" class="alert alert-danger">
       <p>{{ error }}</p>
     </div>
+    <app-alert *ngIf="error" [message]="error" (closeModal)="onHandleError()"></app-alert>
     <div *ngIf="isLoading" style="text-align: center">
       <app-spinner></app-spinner>
     </div>

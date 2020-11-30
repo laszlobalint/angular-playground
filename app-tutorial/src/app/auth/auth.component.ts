@@ -32,7 +32,7 @@ export class AuthComponent {
     }
 
     authObservable.subscribe(
-      (response) => this.router.navigate(['./recipes']),
+      () => this.router.navigate(['./recipes']),
       (errorMessage) => {
         this.error = errorMessage;
       },
@@ -40,5 +40,9 @@ export class AuthComponent {
 
     this.isLoading = false;
     form.reset();
+  }
+
+  onHandleError(): void {
+    this.error = null;
   }
 }
