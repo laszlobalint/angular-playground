@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
 import { AuthRequest, AuthResponse } from './auth.model';
 import { User } from './user.model';
 
@@ -16,7 +17,7 @@ export class AuthService {
 
   signup(email: string, password: string): Observable<AuthResponse> {
     return this.http
-      .post<AuthResponse>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC-sn6y_EhLc-rC7UEiwmwXCAJMyw7yPkE', {
+      .post<AuthResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, {
         email,
         password,
         returnSecureToken: true,
@@ -29,14 +30,11 @@ export class AuthService {
 
   login(email: string, password: string): Observable<AuthResponse> {
     return this.http
-      .post<AuthResponse>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC-sn6y_EhLc-rC7UEiwmwXCAJMyw7yPkE',
-        {
-          email,
-          password,
-          returnSecureToken: true,
-        } as AuthRequest,
-      )
+      .post<AuthResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, {
+        email,
+        password,
+        returnSecureToken: true,
+      } as AuthRequest)
       .pipe(
         catchError(this.handleError),
         tap((response) => this.handleAuthentication(response.localId, response.email, response.idToken, +response.expiresIn)),
