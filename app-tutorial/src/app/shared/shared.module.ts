@@ -8,6 +8,6 @@ import { DropdownDirective } from './dropdown.directive';
 @NgModule({
   declarations: [AlertComponent, SpinnerComponent, DropdownDirective],
   imports: [CommonModule],
-  exports: [AlertComponent, SpinnerComponent, DropdownDirective, CommonModule],
+  exports: [AlertComponent, SpinnerComponent, DropdownDirective],
 })
 export class SharedModule {}
