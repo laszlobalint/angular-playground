@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [AppRoutingModule, CoreModule, SharedModule, BrowserModule, HttpClientModule],
+  imports: [AppRoutingModule, CoreModule, SharedModule, BrowserModule.withServerTransition({ appId: 'serverApp' }), HttpClientModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

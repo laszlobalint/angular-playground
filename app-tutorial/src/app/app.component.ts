@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+
 import { AuthService } from './auth/auth.service';
 
 @Component({
@@ -6,9 +8,11 @@ import { AuthService } from './auth/auth.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  constructor(private readonly authService: AuthService) {}
+  constructor(@Inject(PLATFORM_ID) private readonly platformId, private readonly authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.autoLogin();
+    if (isPlatformBrowser(this.platformId)) {
+      this.authService.autoLogin();
+    }
   }
 }
