@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { Ingredient } from '../../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -16,19 +17,23 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   editedItemId?: number;
   editedItem?: Ingredient;
 
-  constructor(private readonly shoppingListService: ShoppingListService) {}
+  constructor(@Inject(PLATFORM_ID) private readonly platformId, private readonly shoppingListService: ShoppingListService) {}
 
   ngOnInit(): void {
-    this.editingSubscription = this.shoppingListService.startedEditing.subscribe((id: number) => {
-      this.editMode = true;
-      this.editedItemId = id;
-      this.editedItem = this.shoppingListService.getIngredient(id);
-      this.form.setValue({ name: this.editedItem.name, amount: this.editedItem.amount });
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.editingSubscription = this.shoppingListService.startedEditing.subscribe((id: number) => {
+        this.editMode = true;
+        this.editedItemId = id;
+        this.editedItem = this.shoppingListService.getIngredient(id);
+        this.form.setValue({ name: this.editedItem.name, amount: this.editedItem.amount });
+      });
+    }
   }
 
   ngOnDestroy(): void {
-    this.editingSubscription.unsubscribe();
+    if (this.editingSubscription) {
+      this.editingSubscription.unsubscribe();
+    }
   }
 
   onSubmitItem(form: NgForm): void {

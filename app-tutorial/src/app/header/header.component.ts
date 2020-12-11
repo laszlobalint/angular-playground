@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 import { DataStorageService } from '../shared/data-storage.service';
 import { AuthService } from '../auth/auth.service';
@@ -12,14 +13,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private userSubscription?: Subscription;
 
-  constructor(private readonly dataStorageService: DataStorageService, private readonly authService: AuthService) {}
+  constructor(
+    @Inject(PLATFORM_ID) private readonly platformId,
+    private readonly dataStorageService: DataStorageService,
+    private readonly authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
-    this.userSubscription = this.authService.user.subscribe((user) => (this.isAuthenticated = !!user));
+    if (isPlatformBrowser(this.platformId)) {
+      this.userSubscription = this.authService.user.subscribe((user) => (this.isAuthenticated = !!user));
+    }
   }
 
   ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
   onFetchRecipes(): void {
